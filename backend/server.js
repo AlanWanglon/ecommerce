@@ -10,6 +10,13 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json()); // permite receber dados em JSON no req.body
 
+app.use((req, res, next) => {
+    console.log("Middleware Log - Método:", req.method);
+    console.log("Middleware Log - Body:", req.body);
+    next();
+});
+
+
 app.use("/api/products", productRoutes)  // sera o prefixo em cada endpoint
 
 

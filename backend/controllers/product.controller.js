@@ -12,6 +12,7 @@ export const getProducts = async (req, res) => {
 };
 
 export const createProduct = async (req, res) => {
+    console.log("Recebendo dados no backend:", req.body);
     const product = req.body; // Usuario vai enviar esses dados;
 
     if (!product.name || !product.price || !product.image) {
