@@ -4,7 +4,6 @@ export const useProductStore = create((set) => ({
     products: [],
     setProducts: (products) => set({ products }),
     createProduct: async (newProduct) => {
-        console.log("Enviando produto:", newProduct); 
         if (!newProduct.name || !newProduct.image || !newProduct.price) {
             return {success: false, message:"Por favor prencha todos os campos"};
         }
@@ -22,5 +21,13 @@ export const useProductStore = create((set) => ({
         }))
         return {success: true, message:"Produto criado com sucesso"}
 
+    },
+    fetchProducts: async () => {
+        
+        const response = await fetch("http://localhost:5000/api/products")
+        const data = await response.json();
+        set({ products: data.data});
     }
+
+    
 }))
