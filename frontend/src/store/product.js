@@ -27,6 +27,23 @@ export const useProductStore = create((set) => ({
         const response = await fetch("http://localhost:5000/api/products")
         const data = await response.json();
         set({ products: data.data});
+    },
+    deleteProducts: async (productId) => {
+        
+        const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+        
+        const res = await fetch(`${API_URL}/api/products/${productId}`, {
+            method: 'DELETE'
+        })
+        const data = await res.json();
+
+        if (!data.success) return { success: false, message: data.message };
+
+        set((state) => ({
+            products: state.products.filter(product => product._id !== productId)
+        }));
+        return { success: true, message: data.message };
+        
     }
 
     

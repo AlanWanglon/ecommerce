@@ -10,9 +10,12 @@ const HomePage = () => {
   
   useEffect(() => {
     fetchProducts(); // API deve ser chamada aqui
+    
   }, [fetchProducts]);
 
-  console.log("Lista de produtos:", products);
+  
+  
+  
   return (
     <Container maxW= "container.xl" py={12}>
       <VStack spacing={8}>
@@ -34,6 +37,7 @@ const HomePage = () => {
         >
 
         {products.map((product) => {
+          console.log(product);
           return <ProductCard key={product._id} product={product}/>
         })}
         </SimpleGrid>
