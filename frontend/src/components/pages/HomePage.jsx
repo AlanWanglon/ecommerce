@@ -37,7 +37,6 @@ const HomePage = () => {
         >
 
         {products.map((product) => {
-          console.log(product);
           return <ProductCard key={product._id} product={product}/>
         })}
         </SimpleGrid>

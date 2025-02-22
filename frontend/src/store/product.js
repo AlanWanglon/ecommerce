@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 
 export const useProductStore = create((set) => ({
+    
     products: [],
     setProducts: (products) => set({ products }),
     createProduct: async (newProduct) => {
@@ -16,6 +17,8 @@ export const useProductStore = create((set) => ({
         })
 
         const data = await res.json();
+
+        // vai atualizar o ui sem precizar de um refresh na pagina
         set((state) => ({
             products: [...state.products, data.data]
         }))
@@ -44,7 +47,26 @@ export const useProductStore = create((set) => ({
         }));
         return { success: true, message: data.message };
         
+    },
+    updateProduct: async (productId, updatedProduct) => {
+        const res = await fetch(`/api/products/${productId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedProduct),
+        })
+        const data = await res.json();
+
+        if (!data.success) return { success: false, message: data.message };
+
+        // atualizar a ui imediatamente sem precisar recarregar a pagina
+        set((state) => ({
+			products: state.products.map((product) => (product._id === productId ? data.data : product)),
+		}));
     }
+
+    
 
     
 }))
