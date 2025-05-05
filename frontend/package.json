@@ -12,8 +12,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "start": "node ./frontend/scr/index.js"
+    "preview": "vite preview"
+    
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.2.4",
