@@ -11,18 +11,17 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Corrigir __dirname quando usando ES Modules (import/export)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Caminho absoluto até a raiz do projeto
-const projectRoot = path.resolve(__dirname, "..");
+connectDB();
 
 app.use(express.json());
 
+// Rotas da API
 app.use("/api/products", productRoutes);
 
-// Serve frontend apenas em produção
+// Servir frontend em produção
 if (process.env.NODE_ENV === "production") {
   const frontendPath = path.join(__dirname, "frontend", "dist");
 
@@ -34,6 +33,5 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.listen(PORT, () => {
-  connectDB();
-  console.log(`Server started at http://localhost:${PORT}`);
+  console.log(`Server started on port ${PORT}`);
 });
